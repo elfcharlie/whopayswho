@@ -29,7 +29,7 @@ public class Controller : MonoBehaviour
     {
         addPersonsMenuAnim.SetTrigger("HideAddPersonsMenu");
         calculateMenuAnim.SetTrigger("ShowCalculateMenu");
-        calculator.GetAllPayments();
+        calculator.CalculateTransactions();
 
     }
 
