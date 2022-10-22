@@ -9,6 +9,8 @@ TagManager:
   - AddPersonsMenu
   - CalculateMenu
   - Calculator
+  - Transaction
+  - TransactionContainer
   layers:
   - Default
   - TransparentFX

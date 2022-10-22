@@ -9,6 +9,7 @@ public class Calculator : MonoBehaviour
 {
     private Dictionary<string, float> payments = new Dictionary<string, float>();
     private Dictionary<string, float> balance = new Dictionary<string, float>();
+    private List<Transaction> transactions = new List<Transaction>();
     private float totalSum = 0;
     private GameObject[] persons;
 
@@ -24,7 +25,6 @@ public class Calculator : MonoBehaviour
             totalSum += personValues.paidAmount;
         }
     }
-
 
     public void CalculateBalance()
     {
@@ -54,7 +54,7 @@ public class Calculator : MonoBehaviour
     {
         CalculateBalance();
 
-        List<Transaction> transactions = new List<Transaction>();
+        
         int i = 0;
         while (balance.Count > 1 || i > 10)
         {
@@ -86,5 +86,11 @@ public class Calculator : MonoBehaviour
     {
         balance[debtor] -= amount; 
         balance[creditor] += amount;
+    }
+
+    public List<Transaction> GetTransactions()
+    {
+        CalculateTransactions();
+        return transactions;
     }
 }
