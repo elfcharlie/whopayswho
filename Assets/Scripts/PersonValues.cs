@@ -24,7 +24,6 @@ public class PersonValues : MonoBehaviour
     public void ChangeAmount()
     {
         float.TryParse(amountInput.text, out paidAmount);
-        Debug.Log(paidAmount);
     }
     public void DeleteSelf()
     {

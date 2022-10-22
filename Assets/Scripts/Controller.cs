@@ -9,12 +9,14 @@ public class Controller : MonoBehaviour
     private Transform personContainer;
     private Animator addPersonsMenuAnim;
     private Animator calculateMenuAnim;
+    private Calculator calculator;
 
     void Start()
     {
         personContainer = GameObject.FindWithTag("PersonContainer").transform;
         addPersonsMenuAnim = GameObject.FindWithTag("AddPersonsMenu").GetComponent<Animator>();
         calculateMenuAnim = GameObject.FindWithTag("CalculateMenu").GetComponent<Animator>();
+        calculator = GameObject.FindWithTag("Calculator").GetComponent<Calculator>();
     }
     public void AddPerson()
     {
@@ -27,6 +29,8 @@ public class Controller : MonoBehaviour
     {
         addPersonsMenuAnim.SetTrigger("HideAddPersonsMenu");
         calculateMenuAnim.SetTrigger("ShowCalculateMenu");
+        calculator.GetAllPayments();
+
     }
 
     public void ShowAddPersonsMenu()

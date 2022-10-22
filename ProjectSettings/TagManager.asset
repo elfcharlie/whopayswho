@@ -8,6 +8,7 @@ TagManager:
   - Person
   - AddPersonsMenu
   - CalculateMenu
+  - Calculator
   layers:
   - Default
   - TransparentFX
