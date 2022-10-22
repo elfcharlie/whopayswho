@@ -53,8 +53,7 @@ public class Calculator : MonoBehaviour
     public void CalculateTransactions()
     {
         CalculateBalance();
-
-        
+        transactions.Clear();
         int i = 0;
         while (balance.Count > 1 || i > 10)
         {
@@ -76,8 +75,6 @@ public class Calculator : MonoBehaviour
             {
                 balance.Remove(creditor);
             }
-            Debug.Log("Debit: " + amount.ToString() + " from " + debtor +
-                "and credit from " + creditor);
                 i++;
         }
     }
