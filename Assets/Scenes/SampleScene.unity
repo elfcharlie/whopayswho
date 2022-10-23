@@ -1554,7 +1554,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2146654239}
         m_TargetAssemblyTypeName: Controller, Assembly-CSharp
-        m_MethodName: ShowCalculateScreen
+        m_MethodName: InputDoneButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1791,7 +1791,7 @@ GameObject:
   - component: {fileID: 2146654239}
   m_Layer: 0
   m_Name: Controller
-  m_TagString: Untagged
+  m_TagString: Controller
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

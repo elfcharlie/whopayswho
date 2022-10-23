@@ -11,6 +11,7 @@ TagManager:
   - Calculator
   - Transaction
   - TransactionContainer
+  - Controller
   layers:
   - Default
   - TransparentFX

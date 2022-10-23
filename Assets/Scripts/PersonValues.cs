@@ -9,12 +9,14 @@ public class PersonValues : MonoBehaviour
     public float paidAmount;
     private TMP_InputField nameInput;
     private TMP_InputField amountInput;
+    private Controller controller;
     
 
     void Start()
     {
         nameInput = gameObject.transform.Find("NameInput").GetComponent<TMP_InputField>();
         amountInput = gameObject.transform.Find("AmountInput").GetComponent<TMP_InputField>();
+        controller = GameObject.FindWithTag("Controller").GetComponent<Controller>();
         
     }
     public void ChangeName()
@@ -27,6 +29,7 @@ public class PersonValues : MonoBehaviour
     }
     public void DeleteSelf()
     {
+        controller.DeletePerson(gameObject);
         Destroy(gameObject);
     }
 

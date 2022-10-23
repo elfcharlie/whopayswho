@@ -14,6 +14,7 @@ public class Controller : MonoBehaviour
     private Animator addPersonsMenuAnim;
     private Animator calculateMenuAnim;
     private Calculator calculator;
+    private List<GameObject> persons = new List<GameObject>();
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class Controller : MonoBehaviour
     public void AddPerson()
     {
         GameObject newPerson = Instantiate(personPrefab, personContainer);
-        GameObject[] persons = GameObject.FindGameObjectsWithTag("Person");
+        persons.Add(newPerson);
     }
 
 
@@ -41,7 +42,7 @@ public class Controller : MonoBehaviour
     {
         addPersonsMenuAnim.SetTrigger("ShowAddPersonsMenu");
         calculateMenuAnim.SetTrigger("HideCalculateMenu");
-        DestroyOldTransactions();
+        
     }
 
     public void ShowTransactions(List<Transaction> transactions)
@@ -67,13 +68,47 @@ public class Controller : MonoBehaviour
         {
             Destroy(transactionObjects[i]);
         }
-        /*
-        if(transactionContainer.transform.childCount > 0){
-            for (int i = 0; i <= transactionContainer.transform.childCount; i++)
-            {
-                Destroy(transactionContainer.transform.GetChild(0).gameObject);
-                Debug.Log(transactionContainer.transform.childCount);
-            }
-        }*/
     }
+
+    public void InputDoneButton()
+    {
+        if(CheckForAtMinimumPersons() && CheckForEmptyInputFields())
+        {
+            ShowCalculateScreen();
+        }
+    }
+
+    public void DeletePerson(GameObject person)
+    {
+        persons.Remove(person);
+    }
+
+    public bool CheckForEmptyInputFields()
+    {
+        foreach(GameObject person in persons)
+        {
+            PersonValues personValues = person.GetComponent<PersonValues>();
+            if(string.IsNullOrWhiteSpace(personValues.name))
+            {
+                // ADD ERROR MESSAGE
+                Debug.Log("Add a name to all persons");
+                return false;
+            }
+            if(personValues.paidAmount <= 0.0f){
+                Debug.Log("Add expenses to all persons");
+                return false;
+            }
+        }
+        return true;
+    }
+    public bool CheckForAtMinimumPersons()
+    {
+        if(persons.Count < 2)
+        {
+            Debug.Log("Add at least two persons!");
+            return false;
+        }
+        return true;
+    }
+    
 }
