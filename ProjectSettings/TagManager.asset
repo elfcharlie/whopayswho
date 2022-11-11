@@ -16,6 +16,8 @@ TagManager:
   - GroupContainer
   - GroupText
   - GroupMenu
+  - ErrorText
+  - ErrorMessage
   layers:
   - Default
   - TransparentFX

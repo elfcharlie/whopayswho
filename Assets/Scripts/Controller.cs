@@ -16,7 +16,10 @@ public class Controller : MonoBehaviour
     private Animator addPersonsMenuAnim;
     private Animator calculateMenuAnim;
     private Animator groupMenuAnim;
+    private Animator errorMessageAnim;
+    private TextMeshProUGUI errorText;
     private Calculator calculator;
+    private GroupValues activeGroup;
     private List<GameObject> persons = new List<GameObject>();
     private List<GameObject> groups = new List<GameObject>();
 
@@ -28,14 +31,17 @@ public class Controller : MonoBehaviour
         addPersonsMenuAnim = GameObject.FindWithTag("AddPersonsMenu").GetComponent<Animator>();
         calculateMenuAnim = GameObject.FindWithTag("CalculateMenu").GetComponent<Animator>();
         groupMenuAnim = GameObject.FindWithTag("GroupMenu").GetComponent<Animator>();
+        errorMessageAnim = GameObject.FindWithTag("ErrorMessage").GetComponent<Animator>();
         calculator = GameObject.FindWithTag("Calculator").GetComponent<Calculator>();
+        errorText = GameObject.FindWithTag("ErrorText").GetComponent<TextMeshProUGUI>();
     }
+    
     public void AddPerson()
     {
         GameObject newPerson = Instantiate(personPrefab, personContainer);
         persons.Add(newPerson);
+        activeGroup.AddPersonToGroup(newPerson);
     }
-
 
     public void ShowCalculateScreen()
     {
@@ -97,10 +103,12 @@ public class Controller : MonoBehaviour
             {
                 // ADD ERROR MESSAGE
                 Debug.Log("Add a name to all persons");
+                ThrowErrorMessage("Add a name to all persons!");
                 return false;
             }
             if(personValues.paidAmount < 0.0f){
-                Debug.Log("Add expenses to all persons");
+                ThrowErrorMessage("Add expenses to all persons!");
+                Debug.Log("Add expenses to all persons!");
                 return false;
             }
         }
@@ -110,6 +118,7 @@ public class Controller : MonoBehaviour
     {
         if(persons.Count < 2)
         {
+            ThrowErrorMessage("Add at least two persons!");
             Debug.Log("Add at least two persons!");
             return false;
         }
@@ -124,12 +133,50 @@ public class Controller : MonoBehaviour
 
     public void GoToGroup()
     {
+        ClearGroupView();
+        InstatiatePersons(activeGroup);
         addPersonsMenuAnim.SetTrigger("MoveLeft");
         groupMenuAnim.SetTrigger("MoveLeft");
+
     }
     public void GoToGroupMenu()
     {
         addPersonsMenuAnim.SetTrigger("MoveRight");
         groupMenuAnim.SetTrigger("MoveRight");
+    }
+    public void DeleteGroup(GameObject group)
+    {
+        groups.Remove(group);
+    }
+    public void ThrowErrorMessage(string errorMessageText)
+    {
+        errorText.text = errorMessageText;
+        errorMessageAnim.SetBool("ErrorMessage", true);
+    }
+
+    public void SetActiveGroup(GroupValues group)
+    {
+        activeGroup = group;
+    }
+
+    public void ClearGroupView()
+    {
+        List<GameObject> personObjects = new List<GameObject>();
+        foreach(Transform person in personContainer)
+        {
+            personObjects.Add(person.gameObject);
+        }
+
+        for(int i = personObjects.Count - 1 ; i >= 0; i--)
+        {
+            personObjects[i].SetActive(false);
+        }
+    }
+    public void InstatiatePersons(GroupValues activeGroup)
+    {
+        foreach (GameObject person in activeGroup.GetPersons())
+        {
+            person.SetActive(true);
+        }
     }
 }
