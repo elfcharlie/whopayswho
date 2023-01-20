@@ -1,5 +1,6 @@
 # whopayswho
  Mobile app for splitting costs.
+ Minimizing transactions for cost splitting.
 
 Groups View
 
